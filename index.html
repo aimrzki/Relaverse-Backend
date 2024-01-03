@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>RelaVerse API Documentation</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <style>
+        body {
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+
+        .card {
+            border: none;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        pre {
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        #navbar {
+            position: fixed;
+            width: 250px;
+            height: 100%;
+            overflow-y: scroll;
+            padding-right: 15px;
+            padding-left: 15px;
+        }
+
+        #content {
+            margin-left: 300px;
+        }
+
+        .nav-link {
+            color: #2F4F4F !important;
+        }
+
+        .nav-link:hover {
+            color: #FF6347 !important;
+        }
+        
+        #endpoint a {
+            color: #2F4F4F;
+        }
+        
+        #endpoint a:hover {
+            color: #FF6347;
+        }
+
+        .anchor:before {
+            content: "";
+            display: block;
+            height: 70px; /* sesuaikan dengan tinggi navbar Anda */
+            margin: -70px 0 0; /* nilainya harus negatif dan sama dengan height */
+        }
+    </style>
+</head>
+
+<body data-spy="scroll" data-target="#navbar" data-offset="50">
+    <div class="container-fluid">
+        <div class="row">
+            <nav id="navbar" class="bd-sidebar">
+                <h1 class="my-4">List API</h1>
+                <ul class="nav flex-column">
+                    <li class="nav-item"><a class="nav-link" href="#endpoint">Endpoint</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#register">Register</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#login">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#changePassword">Change Password</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#changeLocation">Change Location</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#getUserData">Get User Data</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#createCampaign">Create Campaign</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#getAllCampaign">Get All Campaign</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#getCampaignId">Get Campaign ID</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#joinCampaign">Join Campaign</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#getAllVolunteerbyCampaignId">Get All Volunteer by CampaignID</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#getAllVolunteerbyUserId">Get All Volunteer by UserID</a></li>
+                </ul>
+            </nav>
+            <div id="content" class="col">
+                <h1 class="my-4">RelaVerse API Documentation</h1>
+                <div id="endpoint" class="anchor">
+                    <h2 class="my-4">Endpoint</h2>
+                    <p><a href="https://relaverse-api-dot-bangkit-386813.et.r.appspot.com">https://relaverse-api-dot-bangkit-386813.et.r.appspot.com</a></p>
+                </div>
+
+                <div id="register" class="card mb-4">
+                    <div class="card-body">
+                        <h2>Register</h2>
+                        <p><strong>URL</strong></p>
+                        <p><code>/api/register</code></p>
+                        <p><strong>Method</strong></p>
+                        <p><code>POST</code></p>
+                        <p><strong>Request Body</strong></p>
+                        <pre>
+    {
+        "name": "string",
+        "phone_number": "string",
+        "email": "string, must be unique",
+        "password": "string, must be at least 8 characters"
+    }
+                        </pre>
+                        <p><strong>Response</strong></p>
+                        <pre>
+    {
+        "error": false,
+        "message": "User registered successfully",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwiaWF0IjoxNjg1MjYxNTAxxxxxxxx"
+    }
+                        </pre>
+                    </div>
+                </div>
+
+                <div id="login" class="card mb-4 anchor">
+                    <div class="card-body">
+                        <h2>Login</h2>
+                        <p><strong>URL</strong></p>
+                        <p><code>/api/login</code></p>
+                        <p><strong>Method</strong></p>
+                        <p><code>POST</code></p>
+                        <p><strong>Request Body</strong></p>
+                        <pre>
+    {
+        "email" : "string",
+        "password" : "string"
+    }
+                        </pre>
+                        <p><strong>Response</strong></p>
+                        <pre>
+    {
+        "error": false,
+        "message": "Login successful",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwiaWF0IjoxNjg1MjYxNTAxxxxxxxx",
+        "user": {
+            "id": 9,
+            "name": "Testing",
+            "phone_number": "08xxxxxxxxx",
+            "email": "tes@gmail.com",
+            "password": "$2a$10$hW2PDXK7APikobYgRsMe6Ov6D2iPyyVJlD52XABmfnktk/HiEp7uy",
+            "latitude": null,
+            "longitude": null
+        }
+    }
+                        </pre>
+                    </div>
+                </div>
+
+                <div id="changePassword" class="card mb-4 anchor">
+                    <div class="card-body">
+                        <h2>Change Password</h2>
+                        <p><strong>URL</strong></p>
+                        <p><code>/api/users/change-password/:id</code></p>
+                        <p><strong>Method</strong></p>
+                        <p><code>PUT</code></p>
+                        <p><strong>Request Body</strong></p>
+                        <pre>
+    {
+        "currentPassword" : "string",
+        "newPassword" : "string"
+    }
+                        </pre>
+                        <p><strong>Note</strong></p>
+                        <p><code>Include authorization token in headers.</code></p>
+                        <p><strong>Response</strong></p>
+                        <pre>
+    {
+        "error": false,
+        "message": "Password updated successfully"
+    }
+                        </pre>
+                    </div>
+                </div>
+
+                <div id="changeLocation" class="card mb-4 anchor">
+                    <div class="card-body">
+                        <h2>Change Location</h2>
+                        <p><strong>URL</strong></p>
+                        <p><code>/api/users/change-location/:id</code></p>
+                        <p><strong>Method</strong></p>
+                        <p><code>PUT</code></p>
+                        <p><strong>Request Body</strong></p>
+                        <pre>
+    {
+        "latitude": "number",
+        "longitude": "number"
+    }
+                        </pre>
+                        <p><strong>Note</strong></p>
+                        <p><code>Include authorization token in headers.</code></p>
+                        <p><strong>Response</strong></p>
+                        <pre>
+    {
+        "error": false,
+        "message": "Location updated successfully"
+    }
+                        </pre>
+                    </div>
+                </div>
+
+                <div id="getUserData" class="card mb-4 anchor">
+                    <div class="card-body">
+                        <h2>Get User Data</h2>
+                            <p><strong>URL</strong></p>
+                            <p><code>/api/users/:id</code></p>
+                            <p><strong>Method</strong></p>
+                            <p><code>GET</code></p>
+                            <p><strong>Note</strong></p>
+                            <p><code>Include authorization token in headers.</code></p>
+                            <p><strong>Response</strong></p>
+                            <pre>
+    {
+        "error": false,
+        "message": "User data retrieved successfully",
+        "user": {
+            "id": 9,
+            "name": "Testing",
+            "phone_number": "08xxxxxxxxx",
+            "email": "tes@gmail.com",
+            "latitude": -6.973526,
+            "longitude": 107.632598
+        }
+    }
+                            </pre>
+                    </div>
+                </div>
+
+                <div id="createCampaign" class="card mb-4 anchor">
+                    <div class="card-body">
+                        <h2>Create Campaign</h2>
+                            <p><strong>URL</strong></p>
+                            <p><code>/api/campaign</code></p>
+                            <p><strong>Method</strong></p>
+                            <p><code>POST</code></p>
+                            <p><strong>Request Body</strong></p>
+                            <pre>
+    {
+        "title": "string",
+        "name": "string",
+        "userId": number,
+        "latitude": number,
+        "longitude": number,
+        "contact": "string",
+        "description": "string",
+        "date": "string",
+        "location": "string",
+        "whatsappLink": "string",
+        "photoEvent": file
+    }
+                            </pre>
+                            <p><strong>Note</strong></p>
+                            <p><code>Include authorization token in headers.</code></p>
+                            <p><strong>Response</strong></p>
+                            <pre>
+    {
+        "error": false,
+        "message": "Campaign created successfully"
+    }
+                            </pre>
+                    </div>
+                </div>
+
+                <div id="getAllCampaign" class="card mb-4 anchor">
+                    <div class="card-body">
+                        <h2>Get All Campaign</h2>
+                            <p><strong>URL</strong></p>
+                            <p><code>/api/campaign/all</code></p>
+                            <p><strong>Method</strong></p>
+                            <p><code>GET</code></p>
+                            <p><strong>Note</strong></p>
+                            <p><code>Include authorization token in headers.</code></p>
+                            <p><strong>Response</strong></p>
+                            <pre>
+    {
+        "error": false,
+        "message": "Successfully fetched all campaigns",
+        "campaigns": [
+            {
+                "id": 2,
+                "title": "Relawan Sungai Wakanda",
+                "name": "hasibuan",
+                "userId": 6,
+                "photoEvent": "https://storage.googleapis.com/relaverse/1685222251181-images.jpeg",
+                "lat": -2.113523,
+                "lon": -1.631312,
+                "contact": "08119273405",
+                "description": "sungai wakanda",
+                "date": "2023-05-28T00:00:00.000Z"
+                "location": "JL. Wakanda No. 1",
+                "whatsappLink": "wa.me/group/blablablabla"
+            },
+            {
+                "id": 3,
+                "title": "Relawan Sungai Bangkit",
+                "name": "testing",
+                "userId": 9,
+                "photoEvent": "https://storage.googleapis.com/relaverse/1685262224838-img.jpg",
+                "lat": -3.131251,
+                "lon": -2.352212,
+                "contact": "08xxxxxxxxxx",
+                "description": "sungai bangkit",
+                "date": "2023-05-29T00:00:00.000Z"
+                "location": "JL. Bangkit No. 1",
+                "whatsappLink": "wa.me/group/blablablabla"
+            }
+    }
+                            </pre>
+                    </div>
+                </div>
+
+                <div id="getCampaignId" class="card mb-4 anchor">
+                    <div class="card-body">
+                        <h2>Get Campaign ID</h2>
+                            <p><strong>URL</strong></p>
+                            <p><code>/api/campaign/:campaignId</code></p>
+                            <p><strong>Method</strong></p>
+                            <p><code>GET</code></p>
+                            <p><strong>Note</strong></p>
+                            <p><code>Include authorization token in headers.</code></p>
+                            <p><strong>Response</strong></p>
+                            <pre>
+    {
+        "error": false,
+        "message": "Successfully fetched campaign",
+        "campaign": {
+            "id": 3,
+            "title": "Relawan Sungai Bangkit",
+            "name": "testing",
+            "userId": 9,
+            "photoEvent": "https://storage.googleapis.com/relaverse/1685262224838-img.jpg",
+            "lat": -3.131251,
+            "lon": -2.352212,
+            "contact": "08xxxxxxxxxx",
+            "description": "sungai bangkit",
+            "date": "2023-05-29T00:00:00.000Z"
+            "location": "JL. Bangkit No. 1",
+            "whatsappLink": "wa.me/group/blablablabla"
+        }
+    }
+                            </pre>
+                    </div>
+                </div>
+
+                <div id="joinCampaign" class="card mb-4 anchor">
+                    <div class="card-body">
+                        <h2>Join Campaign</h2>
+                            <p><strong>URL</strong></p>
+                            <p><code>/api/campaign/volunteer/:eventId</code></p>
+                            <p><strong>Method</strong></p>
+                            <p><code>POST</code></p>
+                            <p><strong>Request Body</strong></p>
+                            <pre>
+    {
+        "userId": 9
+    }
+                            </pre>
+                            <p><strong>Note</strong></p>
+                            <p><code>Include authorization token in headers.</code></p>
+                            <p><strong>Response</strong></p>
+                            <pre>
+    {
+        "error": false,
+        "message": "Joined the campaign successfully"
+    }
+                            </pre>
+                    </div>
+                </div>
+
+                <div id="getAllVolunteerbyCampaignId" class="card mb-4 anchor">
+                    <div class="card-body">
+                        <h2>Get All Volunteer by CampaignID</h2>
+                            <p><strong>URL</strong></p>
+                            <p><code>/api/campaign/joined/:eventId</code></p>
+                            <p><strong>Method</strong></p>
+                            <p><code>GET</code></p>
+                            <p><strong>Note</strong></p>
+                            <p><code>Include authorization token in headers.</code></p>
+                            <p><strong>Response</strong></p>
+                            <pre>
+    {
+        "error": false,
+        "message": "Campaign details fetched successfully",
+        "campaignId": 2,
+        "latitude": -2.113523,
+        "longitude": -1.631312,
+        "userList": [
+            {
+                "userId": 13,
+                "name": "admin"
+            },
+            {
+                "userId": 3,
+                "name": "Budi"
+            },
+            {
+                "userId": 9,
+                "name": "Testing"
+            }
+        ]
+    }
+                            </pre>
+                    </div>
+                </div>
+
+                <div id="getAllVolunteerbyUserId" class="card mb-4 anchor">
+                    <div class="card-body">
+                        <h2>Get All Volunteer by UserID</h2>
+                            <p><strong>URL</strong></p>
+                            <p><code>/api/campaign/volunteer/:userId</code></p>
+                            <p><strong>Method</strong></p>
+                            <p><code>GET</code></p>
+                            <p><strong>Note</strong></p>
+                            <p><code>Include authorization token in headers.</code></p>
+                            <p><strong>Response</strong></p>
+                            <pre>
+    {
+        "error": false,
+        "message": "User volunteer data retrieved successfully",
+        "userData": {
+            "userId": 9,
+            "name": "Testing",
+            "eventList": [
+                {
+                    "campaigntId": 2,
+                    "campaignTitle": "Relawan Sungai Wakanda",
+                    "campaigntName": "hasibuan",
+                    "campaignCreatorId": 6,
+                    "campaignPhoto": "https://storage.googleapis.com/relaverse/1685222251181-images.jpeg",
+                    "campaignLat": -2.113523,
+                    "campaignLon": -1.631312,
+                    "campaignContact": "08119273405",
+                    "campaignDescription": "sungai wakanda",
+                    "campaignDate": "2023-05-28T00:00:00.000Z"
+                },
+                {
+                    "campaigntId": 3,
+                    "campaignTitle": "Relawan Sungai Bangkit",
+                    "campaigntName": "testing",
+                    "campaignCreatorId": 9,
+                    "campaignPhoto": "https://storage.googleapis.com/relaverse/1685262224838-img.jpg",
+                    "campaignLat": -3.131251,
+                    "campaignLon": -2.352212,
+                    "campaignContact": "08xxxxxxxxxx",
+                    "campaignDescription": "sungai bangkit",
+                    "campaignDate": "2023-05-29T00:00:00.000Z"
+                }
+            ]
+        }
+    }
+                            </pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>
